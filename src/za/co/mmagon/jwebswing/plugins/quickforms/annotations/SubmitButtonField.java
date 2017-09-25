@@ -27,7 +27,6 @@ public @interface SubmitButtonField
 	
 	public String classes() default "";
 	
-	
 	public String regex() default "";
 	
 	public String regexBind() default "";

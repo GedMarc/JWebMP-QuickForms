@@ -17,7 +17,7 @@ import java.lang.annotation.*;
 		})
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
-public @interface PasswordField
+public @interface NumberField
 {
 	
 	
@@ -25,25 +25,17 @@ public @interface PasswordField
 	
 	public String classes() default "";
 	
-	public boolean isConfirmPassword() default false;
-	
-	public String placeholder() default "";
-	
-	public int minLength() default Integer.MIN_VALUE;
-	
-	public int maxLength() default Integer.MIN_VALUE;
-	
 	public String requiredMessage() default "This field is required";
-	
-	public String minLengthMessage() default "This field is required";
-	public String maxLengthMessage() default "This field is required";
 	
 	public String patternMessage() default "This field doesn't match the required pattern";
 	
 	public boolean required() default false;
 	
-	public boolean showControlFeedback() default true;
+	public int minimumValue() default Integer.MIN_VALUE;
 	
+	public int maximumValue() default Integer.MIN_VALUE;
+	
+	public boolean showControlFeedback() default true;
 	
 	public String regex() default "";
 	
