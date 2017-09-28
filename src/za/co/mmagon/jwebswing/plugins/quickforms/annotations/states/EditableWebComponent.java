@@ -1,4 +1,4 @@
-package za.co.mmagon.jwebswing.plugins.quickforms.annotations;
+package za.co.mmagon.jwebswing.plugins.quickforms.annotations.states;
 
 import java.lang.annotation.*;
 

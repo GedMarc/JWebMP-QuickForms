@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package za.co.mmagon.jwebswing.plugins.quickforms.annotations;
+package za.co.mmagon.jwebswing.plugins.quickforms.annotations.formtypes;
 
 import java.lang.annotation.*;
 
@@ -13,28 +13,21 @@ import java.lang.annotation.*;
  */
 @Target(
 		{
-				ElementType.FIELD, ElementType.TYPE_USE
+				ElementType.TYPE, ElementType.TYPE_USE
+				//ElementType.FIELD, ElementType.TYPE_USE
 		})
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
-public @interface DateTimePicker
+public @interface WebForm
 {
 	
+	public String formName();
 	
+	public boolean inline() default false;
+
 	public String style() default "";
 	
 	public String classes() default "";
 	
 	public boolean showControlFeedback() default true;
-	
-	public String requiredMessage() default "This field is required";
-	
-	public String patternMessage() default "This field doesn't match the required pattern";
-	
-	public boolean required() default false;
-	
-	
-	public String regex() default "";
-	
-	public String regexBind() default "";
 }

@@ -17,7 +17,7 @@ import java.lang.annotation.*;
 		})
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
-public @interface TimePicker
+public @interface DateTimePickerField
 {
 	
 	
@@ -25,13 +25,13 @@ public @interface TimePicker
 	
 	public String classes() default "";
 	
+	public boolean showControlFeedback() default true;
+	
 	public String requiredMessage() default "This field is required";
 	
 	public String patternMessage() default "This field doesn't match the required pattern";
 	
 	public boolean required() default false;
-	
-	public boolean showControlFeedback() default true;
 	
 	
 	public String regex() default "";

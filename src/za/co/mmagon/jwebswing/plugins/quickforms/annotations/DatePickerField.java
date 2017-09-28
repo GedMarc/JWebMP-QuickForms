@@ -13,21 +13,26 @@ import java.lang.annotation.*;
  */
 @Target(
 		{
-				ElementType.TYPE, ElementType.TYPE_USE
-				//ElementType.FIELD, ElementType.TYPE_USE
+				ElementType.FIELD, ElementType.TYPE_USE
 		})
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
-public @interface WebForm
+public @interface DatePickerField
 {
-	
-	public String formName();
-	
-	public boolean inline() default false;
-
 	public String style() default "";
 	
 	public String classes() default "";
 	
 	public boolean showControlFeedback() default true;
+	
+	public String requiredMessage() default "This field is required";
+	
+	public String patternMessage() default "This field doesn't match the required pattern";
+	
+	public boolean required() default false;
+	
+	
+	public String regex() default "";
+	
+	public String regexBind() default "";
 }
