@@ -4,7 +4,7 @@ import java.lang.annotation.*;
 
 @Target(
 		{
-				ElementType.FIELD, ElementType.TYPE_USE
+				ElementType.FIELD
 		})
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
@@ -13,5 +13,7 @@ import java.lang.annotation.*;
  */
 public @interface SearchDisplay
 {
-
+	public String columnHeader();
+	public int columnOrder() default 0;
+	
 }

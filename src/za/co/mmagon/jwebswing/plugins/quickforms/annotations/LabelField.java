@@ -14,13 +14,13 @@ import java.lang.annotation.*;
 @Inherited
 public @interface LabelField
 {
-	
+	public String label();
 	
 	public String style() default "";
 	
 	public String classes() default "";
 	
-	public String label() default "";
+	
 	
 	public String requiredMessage() default "This field is required";
 	
