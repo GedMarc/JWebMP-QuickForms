@@ -1,4 +1,4 @@
-package za.co.mmagon.jwebswing.plugins.quickforms.annotations.formtypes;
+package za.co.mmagon.jwebswing.plugins.quickforms.annotations.wizard;
 
 import java.lang.annotation.*;
 
@@ -11,4 +11,11 @@ import java.lang.annotation.*;
 @Inherited
 public @interface WizardForm
 {
+	/**
+	 * A designated form name
+	 * @return
+	 */
+	public String formName();
+	
+	
 }

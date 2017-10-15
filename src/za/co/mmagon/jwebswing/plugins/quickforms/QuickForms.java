@@ -1,0 +1,315 @@
+package za.co.mmagon.jwebswing.plugins.quickforms;
+
+import com.armineasy.injection.GuiceContext;
+import za.co.mmagon.jwebswing.base.ComponentHierarchyBase;
+import za.co.mmagon.jwebswing.base.html.Form;
+import za.co.mmagon.jwebswing.base.html.Input;
+import za.co.mmagon.jwebswing.plugins.quickforms.annotations.*;
+import za.co.mmagon.jwebswing.plugins.quickforms.annotations.states.ReadOnlyWebComponent;
+import za.co.mmagon.jwebswing.plugins.quickforms.events.QuickFormsCancelEvent;
+import za.co.mmagon.jwebswing.plugins.quickforms.events.QuickFormsClearEvent;
+import za.co.mmagon.jwebswing.plugins.quickforms.events.QuickFormsSubmitEvent;
+import za.co.mmagon.logger.LogFactory;
+
+import javax.annotation.Nullable;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.lang.reflect.Field;
+import java.util.Objects;
+import java.util.logging.Logger;
+
+/**
+ * An abstract layer to distribute quick forms calls
+ * <p>
+ * Base quick forms class
+ *
+ * @param <J>
+ */
+public abstract class QuickForms<E extends Serializable, G extends ComponentHierarchyBase, J extends QuickForms<E, G, J>>
+		extends Form<J>
+		implements IQuickForm<E, G, J>
+{
+	private static final long serialVersionUID = 1L;
+	private static final Logger log = LogFactory.getLog("QuickForms");
+	
+	/**
+	 * The object in question
+	 */
+	private E object;
+	
+	/**
+	 * Constructs a new object of type
+	 *
+	 * @param object
+	 */
+	public QuickForms(E object)
+	{
+		this.object = object;
+	}
+	
+	@Override
+	public void init()
+	{
+		if (!isInitialized())
+		{
+			buildForm();
+		}
+		super.init();
+	}
+	
+	/**
+	 * Builds the fields group as a Div
+	 *
+	 * @return
+	 */
+	protected abstract G buildFieldGroup();
+	
+	/**
+	 * The event to fire on submit
+	 * @return
+	 */
+	protected abstract Class<? extends QuickFormsSubmitEvent> onSubmit();
+	
+	/**
+	 * The event to fire on cancel
+	 * @return
+	 */
+	protected abstract Class<? extends QuickFormsCancelEvent> onCancel();
+	
+	/**
+	 * The clear form event
+	 * @return
+	 */
+	protected abstract Class<? extends QuickFormsClearEvent> onClear();
+	
+	/**
+	 * Configures visible non-entry fields and annotations
+	 * @param field
+	 * @param groupContent
+	 * @return
+	 */
+	protected QuickFormFieldGroup<G, ? extends QuickFormFieldGroup> configureHeaderFields(Field field,QuickFormFieldGroup<G, ? extends QuickFormFieldGroup> groupContent)
+	{
+		if (field.isAnnotationPresent(LabelField.class))
+		{
+			LabelField lf = field.getDeclaredAnnotation(LabelField.class);
+			groupContent = buildFieldLabel(field, lf, groupContent);
+			groupContent.getLabelField().setID(buildFieldId(field,"lbl"));
+		}
+		
+		if (field.isAnnotationPresent(HeaderField.class))
+		{
+			HeaderField lf = field.getDeclaredAnnotation(HeaderField.class);
+			groupContent = buildHeaderField(field, lf, groupContent);
+		}
+		
+		if (field.isAnnotationPresent(SubHeaderField.class))
+		{
+			SubHeaderField lf = field.getDeclaredAnnotation(SubHeaderField.class);
+			groupContent = buildSubHeaderField(field, lf, groupContent);
+		}
+		return groupContent;
+	}
+	
+	/**
+	 * Configures visible non-entry fields and annotations
+	 * @param field
+	 * @param groupContent
+	 * @return
+	 */
+	protected QuickFormFieldGroup<G, ? extends QuickFormFieldGroup> configureInputFields(Field field,QuickFormFieldGroup<G, ? extends QuickFormFieldGroup> groupContent)
+	{
+		if (field.isAnnotationPresent(DateTimePickerField.class))
+		{
+			DateTimePickerField lf = field.getDeclaredAnnotation(DateTimePickerField.class);
+			groupContent = buildDateTimePicker(field, lf, groupContent);
+		}
+		else if (field.isAnnotationPresent(DatePickerField.class))
+		{
+			DatePickerField lf = field.getDeclaredAnnotation(DatePickerField.class);
+			groupContent = buildDatePicker(field, lf, groupContent);
+		}
+		else if (field.isAnnotationPresent(EmailField.class))
+		{
+			EmailField lf = field.getDeclaredAnnotation(EmailField.class);
+			groupContent = buildEmailField(field, lf, groupContent);
+		}
+		else if (field.isAnnotationPresent(HiddenField.class))
+		{
+			HiddenField lf = field.getDeclaredAnnotation(HiddenField.class);
+			groupContent = buildHiddenField(field, lf, groupContent);
+		}
+		else if (field.isAnnotationPresent(NumberField.class))
+		{
+			NumberField lf = field.getDeclaredAnnotation(NumberField.class);
+			groupContent = buildNumberField(field, lf, groupContent);
+		}
+		else if (field.isAnnotationPresent(NumberSpinnerField.class))
+		{
+			NumberSpinnerField lf = field.getDeclaredAnnotation(NumberSpinnerField.class);
+			groupContent = buildNumberSpinnerField(field, lf, groupContent);
+		}
+		else if (field.isAnnotationPresent(PasswordField.class) && field.getType().equals(String.class))
+		{
+			PasswordField lf = field.getDeclaredAnnotation(PasswordField.class);
+			groupContent = buildPasswordField(field, lf, groupContent);
+		}
+		else if (field.isAnnotationPresent(TextField.class))
+		{
+			TextField lf = field.getDeclaredAnnotation(TextField.class);
+			groupContent = buildTextField(field, lf, groupContent);
+		}
+		else if (field.isAnnotationPresent(TextAreaField.class) && field.getType().equals(String.class))
+		{
+			TextAreaField lf = field.getDeclaredAnnotation(TextAreaField.class);
+			groupContent = buildTextAreaField(field, lf, groupContent);
+		}
+		else if (field.isAnnotationPresent(TelephoneField.class) && field.getType().equals(String.class))
+		{
+			TelephoneField lf = field.getDeclaredAnnotation(TelephoneField.class);
+			groupContent = buildTelephoneField(field, lf, groupContent);
+		}
+		else if (field.isAnnotationPresent(SwitchField.class))
+		{
+			SwitchField lf = field.getDeclaredAnnotation(SwitchField.class);
+			groupContent = buildSwitchField(field, lf, groupContent);
+		}
+		
+		if (groupContent.getInputField() != null)
+		{
+			if (field.isAnnotationPresent(ReadOnlyWebComponent.class))
+			{
+				groupContent.getInputField().addAttribute("readonly", "");
+				groupContent.getInputField().addAttribute("disabled", "");
+			}
+			
+			groupContent.getInputField().setID(buildFieldId(field,null));
+		}
+		return groupContent;
+	}
+	
+	/**
+	 * Configures and builds the form from the group content
+	 */
+	protected void configureGroupContent()
+	{
+	
+	}
+	
+	/**
+	 * Builds the input object id for a given field
+	 * @param field The field to get the ID for
+	 * @param suffix Any identifier for the field (like labels) that must be applied. Nullable
+	 * @return
+	 */
+	protected String buildFieldId(@NotNull Field field, @Nullable String suffix)
+	{
+		return getObject().getClass().getSimpleName() + "_" + field.getName() + "_" + (suffix == null ? "" : suffix);
+	}
+	
+	/**
+	 * Builds the form for the given object
+	 * @return
+	 */
+	protected J buildForm()
+	{
+		Field[] myFields = object.getClass().getDeclaredFields();
+		for (Field field : myFields)
+		{
+			QuickFormFieldGroup<G, ? extends QuickFormFieldGroup> groupContent = new QuickFormFieldGroup<>(this);
+			groupContent.setGroup(buildFieldGroup());
+			
+			groupContent = configureHeaderFields(field,groupContent);
+			groupContent = configureInputFields(field, groupContent);
+		}
+		return (J) this;
+	}
+	
+	/**
+	 * Sets the value of the field to the input
+	 *
+	 * @param field
+	 * @param input
+	 */
+	protected J setValue(Field field, Input input)
+	{
+		try
+		{
+			field.setAccessible(true);
+			if (field.get(getObject()) != null)
+			{
+				Object value = field.get(getObject());
+				input.setValue(value.toString());
+			}
+		}
+		catch (IllegalAccessException e)
+		{
+			log.warning("Unable to access field : " + field.getName() + " in " + getObject().getClass());
+		}
+		return (J) this;
+	}
+	
+	/**
+	 * Returns the assigned object
+	 *
+	 * @return
+	 */
+	public E getObject()
+	{
+		return object;
+	}
+	
+	/**
+	 * Sets the object
+	 *
+	 * @param object
+	 *
+	 * @return
+	 */
+	public J setObject(E object)
+	{
+		this.object = object;
+		
+		if (object instanceof Class)
+		{
+			Class<E> c = (Class) object;
+			E instance = GuiceContext.getInstance(c);
+			setObject(instance);
+		}
+		if (object instanceof Class)
+		{
+			setID(Class.class.cast(object).getCanonicalName().replace('.', '_'));
+		}
+		else
+		{
+			setID(object.getClass().getCanonicalName().replace('.', '_'));
+		}
+		
+		return (J) this;
+	}
+	
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o)
+		{
+			return true;
+		}
+		if (!(o instanceof QuickForms))
+		{
+			return false;
+		}
+		if (!super.equals(o))
+		{
+			return false;
+		}
+		QuickForms<E, G, J> that = (QuickForms<E, G, J>) o;
+		return Objects.equals(getObject(), that.getObject());
+	}
+	
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(super.hashCode(), getObject());
+	}
+}

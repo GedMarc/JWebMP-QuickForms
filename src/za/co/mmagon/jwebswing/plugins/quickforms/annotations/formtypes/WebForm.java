@@ -14,20 +14,38 @@ import java.lang.annotation.*;
 @Target(
 		{
 				ElementType.TYPE, ElementType.TYPE_USE
-				//ElementType.FIELD, ElementType.TYPE_USE
 		})
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 public @interface WebForm
 {
-	
+	/**
+	 * A designated form name
+	 * @return
+	 */
 	public String formName();
 	
+	/**
+	 * If the form is inline
+	 * @return
+	 */
 	public boolean inline() default false;
-
+	
+	/**
+	 * Any additional styles to add
+	 * @return
+	 */
 	public String style() default "";
 	
+	/**
+	 * Any additional classes to add
+	 * @return
+	 */
 	public String classes() default "";
 	
+	/**
+	 * If this form must register control feedback as true
+	 * @return
+	 */
 	public boolean showControlFeedback() default true;
 }
