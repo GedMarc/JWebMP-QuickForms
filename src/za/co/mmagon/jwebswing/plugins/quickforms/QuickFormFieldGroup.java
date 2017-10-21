@@ -114,6 +114,7 @@ public class QuickFormFieldGroup<G extends ComponentHierarchyBase, J extends Qui
 	 * Returns the input fields
 	 * @return
 	 */
+	@NotNull
 	public ComponentHierarchyBase getInputField()
 	{
 		return inputField;
@@ -124,14 +125,14 @@ public class QuickFormFieldGroup<G extends ComponentHierarchyBase, J extends Qui
 	 * @param inputField
 	 * @return
 	 */
-	public J setInputField(ComponentHierarchyBase inputField)
+	public J setInputField(@NotNull ComponentHierarchyBase inputField)
 	{
 		this.inputField = inputField;
 		return (J)this;
 	}
 	
 	/**
-	 *
+	 * Returns the pre input fields
 	 * @return
 	 */
 	@NotNull
