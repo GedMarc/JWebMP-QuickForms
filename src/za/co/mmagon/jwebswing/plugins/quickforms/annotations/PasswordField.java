@@ -19,33 +19,34 @@ import java.lang.annotation.*;
 @Inherited
 public @interface PasswordField
 {
-	
-	
-	public String style() default "";
-	
-	public String classes() default "";
-	
-	public boolean isConfirmPassword() default false;
-	
-	public String placeholder() default "";
-	
-	public int minLength() default Integer.MIN_VALUE;
-	
-	public int maxLength() default Integer.MIN_VALUE;
-	
-	public String requiredMessage() default "This field is required";
-	
-	public String minLengthMessage() default "This field is required";
-	public String maxLengthMessage() default "This field is required";
-	
-	public String patternMessage() default "This field doesn't match the required pattern";
-	
-	public boolean required() default false;
-	
-	public boolean showControlFeedback() default true;
-	
-	
-	public String regex() default "";
-	
-	public String regexBind() default "";
+
+
+	String style() default "";
+
+	String classes() default "";
+
+	boolean isConfirmPassword() default false;
+
+	String placeholder() default "";
+
+	int minLength() default Integer.MIN_VALUE;
+
+	int maxLength() default Integer.MIN_VALUE;
+
+	String requiredMessage() default "This field is required";
+
+	String minLengthMessage() default "This field needs more characters";
+
+	String maxLengthMessage() default "This field has reached the maximum characters";
+
+	String patternMessage() default "This field doesn't match the required pattern";
+
+	boolean required() default false;
+
+	boolean showControlFeedback() default true;
+
+
+	String regex() default "";
+
+	String regexBind() default "";
 }
