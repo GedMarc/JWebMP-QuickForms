@@ -9,6 +9,7 @@ import za.co.mmagon.jwebswing.plugins.quickforms.annotations.states.ReadOnlyWebC
 import za.co.mmagon.jwebswing.plugins.quickforms.events.QuickFormsCancelEvent;
 import za.co.mmagon.jwebswing.plugins.quickforms.events.QuickFormsClearEvent;
 import za.co.mmagon.jwebswing.plugins.quickforms.events.QuickFormsSubmitEvent;
+import za.co.mmagon.jwebswing.utilities.StaticStrings;
 import za.co.mmagon.logger.LogFactory;
 
 import javax.annotation.Nullable;
@@ -320,11 +321,11 @@ public abstract class QuickForms<E extends Serializable, G extends ComponentHier
 		}
 		if (getSerializable() instanceof Class)
 		{
-			setID(Class.class.cast(getSerializable()).getCanonicalName().replace('.', '_'));
+			setID(Class.class.cast(getSerializable()).getCanonicalName().replace(StaticStrings.CHAR_DOT, StaticStrings.CHAR_UNDERSCORE));
 		}
 		else
 		{
-			setID(getSerializable().getClass().getCanonicalName().replace('.', '_'));
+			setID(getSerializable().getClass().getCanonicalName().replace(StaticStrings.CHAR_DOT, StaticStrings.CHAR_UNDERSCORE));
 		}
 
 		return (J) this;
