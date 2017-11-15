@@ -64,6 +64,7 @@ public class QuickFormFieldGroup<G extends ComponentHierarchyBase, J extends Qui
 	 * @param form
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	public J setForm(Form form)
 	{
 		this.form = form;
@@ -84,6 +85,7 @@ public class QuickFormFieldGroup<G extends ComponentHierarchyBase, J extends Qui
 	 * @param group
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	public J setGroup(G group)
 	{
 		this.group = group;
@@ -104,6 +106,7 @@ public class QuickFormFieldGroup<G extends ComponentHierarchyBase, J extends Qui
 	 * @param labelField
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	public J setLabelField(ComponentHierarchyBase labelField)
 	{
 		this.labelField = labelField;
@@ -125,6 +128,7 @@ public class QuickFormFieldGroup<G extends ComponentHierarchyBase, J extends Qui
 	 * @param inputField
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	public J setInputField(@NotNull ComponentHierarchyBase inputField)
 	{
 		this.inputField = inputField;
@@ -150,6 +154,7 @@ public class QuickFormFieldGroup<G extends ComponentHierarchyBase, J extends Qui
 	 * @param preInputFields
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	public J setPreInputFields(List<ComponentHierarchyBase> preInputFields)
 	{
 		this.preInputFields = preInputFields;
@@ -175,6 +180,7 @@ public class QuickFormFieldGroup<G extends ComponentHierarchyBase, J extends Qui
 	 * @param postInputFields
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	public J setPostInputFields(List<ComponentHierarchyBase> postInputFields)
 	{
 		this.postInputFields = postInputFields;
