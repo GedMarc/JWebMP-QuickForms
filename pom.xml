@@ -224,7 +224,7 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>RELEASE</version>
+            <version>5.0.1</version>
             <scope>test</scope>
             <type>jar</type>
         </dependency>
@@ -264,9 +264,10 @@
         </dependency>
 
     </dependencies>
+
     <distributionManagement>
         <snapshotRepository>
-            <id>snapshots</id>
+            <id>snapshot</id>
             <name>JWebSwingArtifactory-snapshots</name>
             <url>https://jwebswing.com/artifactory/libs-snapshot-local</url>
         </snapshotRepository>
