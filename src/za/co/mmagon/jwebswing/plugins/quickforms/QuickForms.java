@@ -1,6 +1,6 @@
 package za.co.mmagon.jwebswing.plugins.quickforms;
 
-import com.armineasy.injection.GuiceContext;
+import za.co.mmagon.guiceinjection.GuiceContext;
 import za.co.mmagon.jwebswing.base.ComponentHierarchyBase;
 import za.co.mmagon.jwebswing.base.html.Form;
 import za.co.mmagon.jwebswing.base.html.Input;
