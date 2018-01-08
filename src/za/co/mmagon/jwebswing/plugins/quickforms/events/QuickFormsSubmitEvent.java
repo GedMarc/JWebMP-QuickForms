@@ -9,12 +9,12 @@ import java.io.Serializable;
 
 public abstract class QuickFormsSubmitEvent<E extends Serializable> extends ClickAdapter
 {
-	
+
 	public abstract void onSubmit(E returnedDto,AjaxCall call, AjaxResponse response);
-	
+
 	@Override
-	public void onClick(AjaxCall call, AjaxResponse response) throws InvalidAttributeValueException
+	public void onClick(AjaxCall call, AjaxResponse response)
 	{
-	
+
 	}
 }

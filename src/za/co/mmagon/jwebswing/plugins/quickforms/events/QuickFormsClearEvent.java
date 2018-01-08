@@ -14,10 +14,10 @@ public abstract class QuickFormsClearEvent<E extends Serializable> extends Click
 	 * @param returnedDto
 	 */
 	public abstract void onClear(E returnedDto,AjaxCall call, AjaxResponse response);
-	
+
 	@Override
-	public void onClick(AjaxCall call, AjaxResponse response) throws InvalidAttributeValueException
+	public void onClick(AjaxCall call, AjaxResponse response)
 	{
-	
+
 	}
 }

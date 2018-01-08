@@ -10,10 +10,10 @@ import java.io.Serializable;
 public abstract  class QuickFormsCancelEvent<E extends Serializable> extends ClickAdapter
 {
 	public abstract void onCancel(E returnedDto,AjaxCall call, AjaxResponse response);
-	
+
 	@Override
-	public void onClick(AjaxCall call, AjaxResponse response) throws InvalidAttributeValueException
+	public void onClick(AjaxCall call, AjaxResponse response)
 	{
-	
+
 	}
 }
