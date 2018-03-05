@@ -95,13 +95,15 @@ public abstract class QuickForms<E extends Serializable, G extends ComponentHier
 	 *
 	 * @return
 	 */
-	protected QuickFormFieldGroup<G, ? extends QuickFormFieldGroup> configureHeaderFields(Field field, QuickFormFieldGroup<G, ? extends QuickFormFieldGroup> groupContent)
+	protected QuickFormFieldGroup<G, ? extends QuickFormFieldGroup> configureHeaderFields(Field field, QuickFormFieldGroup<G, ? extends
+			                                                                                                                          QuickFormFieldGroup> groupContent)
 	{
 		if (field.isAnnotationPresent(LabelField.class))
 		{
 			LabelField lf = field.getDeclaredAnnotation(LabelField.class);
 			groupContent = buildFieldLabel(field, lf, groupContent);
-			groupContent.getLabelField().setID(getFieldId(field, "lbl"));
+			groupContent.getLabelField()
+			            .setID(getFieldId(field, "lbl"));
 		}
 
 		if (field.isAnnotationPresent(HeaderField.class))
@@ -130,7 +132,8 @@ public abstract class QuickForms<E extends Serializable, G extends ComponentHier
 	 */
 	protected String getFieldId(@NotNull Field field, @Nullable String suffix)
 	{
-		return getSerializable().getClass().getSimpleName() + "_" + field.getName() + "_" + (suffix == null ? "" : suffix);
+		return getSerializable().getClass()
+		                        .getSimpleName() + "_" + field.getName() + "_" + (suffix == null ? "" : suffix);
 	}
 
 	/**
@@ -141,7 +144,8 @@ public abstract class QuickForms<E extends Serializable, G extends ComponentHier
 	 *
 	 * @return
 	 */
-	protected QuickFormFieldGroup<G, ? extends QuickFormFieldGroup> configureInputFields(Field field, QuickFormFieldGroup<G, ? extends QuickFormFieldGroup> groupContent)
+	protected QuickFormFieldGroup<G, ? extends QuickFormFieldGroup> configureInputFields(Field field, QuickFormFieldGroup<G, ? extends
+			                                                                                                                         QuickFormFieldGroup> groupContent)
 	{
 		if (field.isAnnotationPresent(DateTimePickerField.class))
 		{
@@ -173,7 +177,8 @@ public abstract class QuickForms<E extends Serializable, G extends ComponentHier
 			NumberSpinnerField lf = field.getDeclaredAnnotation(NumberSpinnerField.class);
 			groupContent = buildNumberSpinnerField(field, lf, groupContent);
 		}
-		else if (field.isAnnotationPresent(PasswordField.class) && field.getType().equals(String.class))
+		else if (field.isAnnotationPresent(PasswordField.class) && field.getType()
+		                                                                .equals(String.class))
 		{
 			PasswordField lf = field.getDeclaredAnnotation(PasswordField.class);
 			groupContent = buildPasswordField(field, lf, groupContent);
@@ -183,12 +188,14 @@ public abstract class QuickForms<E extends Serializable, G extends ComponentHier
 			TextField lf = field.getDeclaredAnnotation(TextField.class);
 			groupContent = buildTextField(field, lf, groupContent);
 		}
-		else if (field.isAnnotationPresent(TextAreaField.class) && field.getType().equals(String.class))
+		else if (field.isAnnotationPresent(TextAreaField.class) && field.getType()
+		                                                                .equals(String.class))
 		{
 			TextAreaField lf = field.getDeclaredAnnotation(TextAreaField.class);
 			groupContent = buildTextAreaField(field, lf, groupContent);
 		}
-		else if (field.isAnnotationPresent(TelephoneField.class) && field.getType().equals(String.class))
+		else if (field.isAnnotationPresent(TelephoneField.class) && field.getType()
+		                                                                 .equals(String.class))
 		{
 			TelephoneField lf = field.getDeclaredAnnotation(TelephoneField.class);
 			groupContent = buildTelephoneField(field, lf, groupContent);
@@ -211,23 +218,28 @@ public abstract class QuickForms<E extends Serializable, G extends ComponentHier
 	 *
 	 * @return
 	 */
-	protected QuickFormFieldGroup<G, ? extends QuickFormFieldGroup> configureGroupContent(Field field, QuickFormFieldGroup<G, ? extends QuickFormFieldGroup> groupContent)
+	protected QuickFormFieldGroup<G, ? extends QuickFormFieldGroup> configureGroupContent(Field field, QuickFormFieldGroup<G, ? extends
+			                                                                                                                          QuickFormFieldGroup> groupContent)
 	{
 		if (groupContent.getLabelField() != null)
 		{
-			groupContent.getGroup().add(groupContent.getLabelField());
+			groupContent.getGroup()
+			            .add(groupContent.getLabelField());
 		}
 		for (ComponentHierarchyBase comp : groupContent.getPreInputFields())
 		{
-			groupContent.getGroup().add(comp);
+			groupContent.getGroup()
+			            .add(comp);
 		}
 		if (groupContent.getInputField() != null)
 		{
-			groupContent.getGroup().add(groupContent.getInputField());
+			groupContent.getGroup()
+			            .add(groupContent.getInputField());
 		}
 		for (ComponentHierarchyBase comp : groupContent.getPostInputFields())
 		{
-			groupContent.getGroup().add(comp);
+			groupContent.getGroup()
+			            .add(comp);
 		}
 		return groupContent;
 	}
@@ -238,11 +250,14 @@ public abstract class QuickForms<E extends Serializable, G extends ComponentHier
 		{
 			if (field.isAnnotationPresent(ReadOnlyWebComponent.class))
 			{
-				groupContent.getInputField().addAttribute("readonly", "");
-				groupContent.getInputField().addAttribute("disabled", "");
+				groupContent.getInputField()
+				            .addAttribute("readonly", "");
+				groupContent.getInputField()
+				            .addAttribute("disabled", "");
 			}
 
-			groupContent.getInputField().setID(getFieldId(field, null));
+			groupContent.getInputField()
+			            .setID(getFieldId(field, null));
 		}
 	}
 
@@ -253,7 +268,8 @@ public abstract class QuickForms<E extends Serializable, G extends ComponentHier
 	 */
 	protected J buildForm()
 	{
-		Field[] myFields = getSerializable().getClass().getDeclaredFields();
+		Field[] myFields = getSerializable().getClass()
+		                                    .getDeclaredFields();
 		for (Field field : myFields)
 		{
 			QuickFormFieldGroup<G, ? extends QuickFormFieldGroup> groupContent = new QuickFormFieldGroup<>(this);
@@ -321,11 +337,15 @@ public abstract class QuickForms<E extends Serializable, G extends ComponentHier
 		}
 		if (getSerializable() instanceof Class)
 		{
-			setID(Class.class.cast(getSerializable()).getCanonicalName().replace(StaticStrings.CHAR_DOT, StaticStrings.CHAR_UNDERSCORE));
+			setID(Class.class.cast(getSerializable())
+			                 .getCanonicalName()
+			                 .replace(StaticStrings.CHAR_DOT, StaticStrings.CHAR_UNDERSCORE));
 		}
 		else
 		{
-			setID(getSerializable().getClass().getCanonicalName().replace(StaticStrings.CHAR_DOT, StaticStrings.CHAR_UNDERSCORE));
+			setID(getSerializable().getClass()
+			                       .getCanonicalName()
+			                       .replace(StaticStrings.CHAR_DOT, StaticStrings.CHAR_UNDERSCORE));
 		}
 
 		return (J) this;
