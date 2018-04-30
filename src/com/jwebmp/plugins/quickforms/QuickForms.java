@@ -24,7 +24,6 @@ import java.util.logging.Logger;
  *
  * @param <J>
  */
-@Deprecated
 public abstract class QuickForms<E extends Serializable, G extends ComponentHierarchyBase, J extends QuickForms<E, G, J>>
 		extends Form<J>
 		implements IQuickForm<E, G, J>
