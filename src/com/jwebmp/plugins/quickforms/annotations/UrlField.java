@@ -16,8 +16,6 @@ import java.lang.annotation.*;
 @Inherited
 public @interface UrlField
 {
-
-
 	String style() default "";
 
 	String classes() default "";

@@ -28,7 +28,7 @@ import java.lang.annotation.*;
 @Inherited
 public @interface SelectField
 {
-
+	boolean multiple() default false;
 
 	String style() default "";
 
@@ -41,8 +41,7 @@ public @interface SelectField
 	boolean required() default false;
 
 	boolean showControlFeedback() default true;
-
-
+	
 	String regex() default "";
 
 	String regexBind() default "";

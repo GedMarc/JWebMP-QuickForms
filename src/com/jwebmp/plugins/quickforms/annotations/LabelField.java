@@ -34,17 +34,6 @@ public @interface LabelField
 
 	String classes() default "";
 
-
-	String requiredMessage() default "This field is required";
-
-	String patternMessage() default "This field doesn't match the required pattern";
-
-	boolean required() default false;
-
 	boolean showControlFeedback() default true;
 
-
-	String regex() default "";
-
-	String regexBind() default "";
 }

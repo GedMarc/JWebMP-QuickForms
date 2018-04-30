@@ -14,19 +14,21 @@ import java.lang.annotation.*;
 @Target({ElementType.FIELD, ElementType.TYPE_USE})
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
-public @interface DatePickerField
+public @interface ColorField
 {
 	String style() default "";
 
 	String classes() default "";
 
-	boolean showControlFeedback() default true;
+	String placeholder() default "";
 
 	String requiredMessage() default "This field is required";
 
 	String patternMessage() default "This field doesn't match the required pattern";
 
 	boolean required() default false;
+
+	boolean showControlFeedback() default true;
 
 	String regex() default "";
 

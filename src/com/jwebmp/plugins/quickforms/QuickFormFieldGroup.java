@@ -15,6 +15,7 @@ import java.util.List;
  * @param <G>
  * 		The group component type
  */
+@Deprecated
 public class QuickFormFieldGroup<G extends ComponentHierarchyBase, J extends QuickFormFieldGroup<G, J>>
 		extends JavaScriptPart<J>
 {

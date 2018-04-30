@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package com.jwebmp.plugins.quickforms.annotations.search;
 
 import java.lang.annotation.*;

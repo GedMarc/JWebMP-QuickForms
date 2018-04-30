@@ -15,23 +15,35 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.jwebmp.plugins.quickforms.events;
+package com.jwebmp.plugins.quickforms.annotations;
 
-import com.jwebmp.base.ajax.AjaxCall;
-import com.jwebmp.base.ajax.AjaxResponse;
-import com.jwebmp.events.click.ClickAdapter;
+import java.lang.annotation.*;
 
-import java.io.Serializable;
-
-public abstract class QuickFormsSubmitEvent<E extends Serializable>
-		extends ClickAdapter
+/**
+ * @author Marc Magon
+ * @since 25 Mar 2017
+ */
+@Target({ElementType.FIELD, ElementType.TYPE_USE})
+@Retention(RetentionPolicy.RUNTIME)
+@Inherited
+public @interface FileField
 {
+	String style() default "";
 
-	public abstract void onSubmit(E returnedDto, AjaxCall call, AjaxResponse response);
+	String classes() default "";
 
-	@Override
-	public void onClick(AjaxCall call, AjaxResponse response)
-	{
+	String requiredMessage() default "This field is required";
 
-	}
+	String patternMessage() default "This field doesn't match the required pattern";
+
+	boolean required() default false;
+
+	boolean showControlFeedback() default true;
+
+	String label() default "";
+
+
+	String regex() default "";
+
+	String regexBind() default "";
 }

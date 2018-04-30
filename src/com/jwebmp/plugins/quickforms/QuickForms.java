@@ -4,10 +4,7 @@ import com.jwebmp.base.ComponentHierarchyBase;
 import com.jwebmp.base.html.Form;
 import com.jwebmp.base.html.Input;
 import com.jwebmp.plugins.quickforms.annotations.*;
-import com.jwebmp.plugins.quickforms.annotations.states.ReadOnlyWebComponent;
-import com.jwebmp.plugins.quickforms.events.QuickFormsCancelEvent;
-import com.jwebmp.plugins.quickforms.events.QuickFormsClearEvent;
-import com.jwebmp.plugins.quickforms.events.QuickFormsSubmitEvent;
+import com.jwebmp.plugins.quickforms.annotations.states.WebReadOnly;
 import com.jwebmp.utilities.StaticStrings;
 import za.co.mmagon.guiceinjection.GuiceContext;
 import za.co.mmagon.logger.LogFactory;
@@ -27,6 +24,7 @@ import java.util.logging.Logger;
  *
  * @param <J>
  */
+@Deprecated
 public abstract class QuickForms<E extends Serializable, G extends ComponentHierarchyBase, J extends QuickForms<E, G, J>>
 		extends Form<J>
 		implements IQuickForm<E, G, J>
@@ -65,27 +63,6 @@ public abstract class QuickForms<E extends Serializable, G extends ComponentHier
 	 * @return
 	 */
 	protected abstract G buildFieldGroup();
-
-	/**
-	 * The event to fire on submit
-	 *
-	 * @return
-	 */
-	protected abstract Class<? extends QuickFormsSubmitEvent> onSubmit();
-
-	/**
-	 * The event to fire on cancel
-	 *
-	 * @return
-	 */
-	protected abstract Class<? extends QuickFormsCancelEvent> onCancel();
-
-	/**
-	 * The clear form event
-	 *
-	 * @return
-	 */
-	protected abstract Class<? extends QuickFormsClearEvent> onClear();
 
 	/**
 	 * Configures visible non-entry fields and annotations
@@ -245,7 +222,7 @@ public abstract class QuickForms<E extends Serializable, G extends ComponentHier
 	{
 		if (groupContent.getInputField() != null)
 		{
-			if (field.isAnnotationPresent(ReadOnlyWebComponent.class))
+			if (field.isAnnotationPresent(WebReadOnly.class))
 			{
 				groupContent.getInputField()
 				            .addAttribute("readonly", "");
@@ -349,12 +326,6 @@ public abstract class QuickForms<E extends Serializable, G extends ComponentHier
 	}
 
 	@Override
-	public int hashCode()
-	{
-		return Objects.hash(super.hashCode(), getSerializable());
-	}
-
-	@Override
 	public boolean equals(Object o)
 	{
 		if (this == o)
@@ -371,5 +342,11 @@ public abstract class QuickForms<E extends Serializable, G extends ComponentHier
 		}
 		QuickForms<E, G, J> that = (QuickForms<E, G, J>) o;
 		return Objects.equals(getSerializable(), that.getSerializable());
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(super.hashCode(), getSerializable());
 	}
 }

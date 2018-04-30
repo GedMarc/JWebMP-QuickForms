@@ -19,12 +19,13 @@ package com.jwebmp.plugins.quickforms.annotations.search;
 
 import java.lang.annotation.*;
 
+/**
+ * Marker to denote that the field must be displayed on the search screen
+ */
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
-/**
- * Marker to denote that the field must be displayed on the search screen
- */ public @interface SearchDisplay
+public @interface SearchDisplay
 {
 	String columnHeader();
 

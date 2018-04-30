@@ -31,6 +31,7 @@ import java.lang.annotation.*;
 @Target({ElementType.FIELD, ElementType.TYPE_USE})
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
+@Deprecated
 public @interface NumberSpinnerField
 {
 

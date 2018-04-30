@@ -5,6 +5,8 @@
  */
 package com.jwebmp.plugins.quickforms.annotations;
 
+import com.jwebmp.events.click.ClickAdapter;
+
 import java.lang.annotation.*;
 
 /**
@@ -14,21 +16,22 @@ import java.lang.annotation.*;
 @Target({ElementType.FIELD, ElementType.TYPE_USE})
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
-public @interface DatePickerField
+public @interface ResetButtonField
 {
+	/**
+	 * The submit class to fire on
+	 *
+	 * @return
+	 */
+	Class<? extends ClickAdapter> eventClass();
+
 	String style() default "";
 
 	String classes() default "";
 
-	boolean showControlFeedback() default true;
-
-	String requiredMessage() default "This field is required";
-
-	String patternMessage() default "This field doesn't match the required pattern";
-
-	boolean required() default false;
-
 	String regex() default "";
 
 	String regexBind() default "";
+
+	boolean afterField() default true;
 }

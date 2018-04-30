@@ -16,8 +16,6 @@ import java.lang.annotation.*;
 @Inherited
 public @interface TextField
 {
-
-
 	String style() default "";
 
 	String classes() default "";

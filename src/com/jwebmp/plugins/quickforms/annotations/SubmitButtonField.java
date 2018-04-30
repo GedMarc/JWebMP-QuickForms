@@ -18,7 +18,14 @@ import java.lang.annotation.*;
 @Inherited
 public @interface SubmitButtonField
 {
+	/**
+	 * The submit class to fire on
+	 *
+	 * @return
+	 */
 	Class<? extends ClickAdapter> eventClass();
+
+	boolean activeOnFormValidationOnly() default true;
 
 	String style() default "";
 
@@ -27,4 +34,6 @@ public @interface SubmitButtonField
 	String regex() default "";
 
 	String regexBind() default "";
+
+	boolean afterField() default true;
 }

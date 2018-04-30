@@ -33,8 +33,6 @@ import java.lang.annotation.*;
 @Inherited
 public @interface DateTimePickerField
 {
-
-
 	String style() default "";
 
 	String classes() default "";
@@ -46,7 +44,6 @@ public @interface DateTimePickerField
 	String patternMessage() default "This field doesn't match the required pattern";
 
 	boolean required() default false;
-
 
 	String regex() default "";
 

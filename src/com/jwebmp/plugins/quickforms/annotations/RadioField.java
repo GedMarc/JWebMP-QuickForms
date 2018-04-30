@@ -14,8 +14,10 @@ import java.lang.annotation.*;
 @Target({ElementType.FIELD, ElementType.TYPE_USE})
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
-public @interface DatePickerField
+public @interface RadioField
 {
+	String group();
+	
 	String style() default "";
 
 	String classes() default "";
@@ -28,7 +30,4 @@ public @interface DatePickerField
 
 	boolean required() default false;
 
-	String regex() default "";
-
-	String regexBind() default "";
 }

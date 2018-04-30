@@ -33,12 +33,7 @@ import java.lang.annotation.*;
 @Inherited
 public @interface WebForm
 {
-	/**
-	 * A designated form name
-	 *
-	 * @return
-	 */
-	String formName();
+
 
 	/**
 	 * If the form is inline
@@ -60,11 +55,4 @@ public @interface WebForm
 	 * @return
 	 */
 	String classes() default "";
-
-	/**
-	 * If this form must register control feedback as true
-	 *
-	 * @return
-	 */
-	boolean showControlFeedback() default true;
 }
