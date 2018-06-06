@@ -4,10 +4,10 @@ import com.jwebmp.base.html.DivSimple;
 import com.jwebmp.base.html.Form;
 import com.jwebmp.base.html.Input;
 import com.jwebmp.base.html.interfaces.children.FormChildren;
+import com.jwebmp.logger.LogFactory;
 import com.jwebmp.plugins.quickforms.annotations.*;
 import com.jwebmp.plugins.quickforms.annotations.states.WebIgnore;
 import com.jwebmp.utilities.StaticStrings;
-import za.co.mmagon.logger.LogFactory;
 
 import javax.validation.constraints.NotNull;
 import java.lang.reflect.Field;
@@ -16,8 +16,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static com.jwebmp.utilities.StaticStrings.CHAR_DOT;
-import static com.jwebmp.utilities.StaticStrings.CHAR_UNDERSCORE;
+import static com.jwebmp.utilities.StaticStrings.*;
 
 /**
  * Implementation Base for a Quick Form

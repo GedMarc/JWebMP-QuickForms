@@ -3,11 +3,11 @@ package com.jwebmp.plugins.quickforms;
 import com.jwebmp.base.ComponentHierarchyBase;
 import com.jwebmp.base.html.Form;
 import com.jwebmp.base.html.Input;
+import com.jwebmp.guiceinjection.GuiceContext;
+import com.jwebmp.logger.LogFactory;
 import com.jwebmp.plugins.quickforms.annotations.*;
 import com.jwebmp.plugins.quickforms.annotations.states.WebReadOnly;
 import com.jwebmp.utilities.StaticStrings;
-import za.co.mmagon.guiceinjection.GuiceContext;
-import za.co.mmagon.logger.LogFactory;
 
 import javax.annotation.Nullable;
 import javax.validation.constraints.NotNull;
