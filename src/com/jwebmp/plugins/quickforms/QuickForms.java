@@ -3,7 +3,7 @@ package com.jwebmp.plugins.quickforms;
 import com.jwebmp.base.ComponentHierarchyBase;
 import com.jwebmp.base.html.Form;
 import com.jwebmp.base.html.Input;
-import com.jwebmp.guiceinjection.GuiceContext;
+import com.jwebmp.guicedinjection.GuiceContext;
 import com.jwebmp.logger.LogFactory;
 import com.jwebmp.plugins.quickforms.annotations.*;
 import com.jwebmp.plugins.quickforms.annotations.states.WebReadOnly;
