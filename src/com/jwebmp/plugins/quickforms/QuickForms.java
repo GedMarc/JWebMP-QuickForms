@@ -9,7 +9,6 @@ import com.jwebmp.plugins.quickforms.annotations.*;
 import com.jwebmp.plugins.quickforms.annotations.states.WebReadOnly;
 import com.jwebmp.utilities.StaticStrings;
 
-import javax.annotation.Nullable;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.lang.reflect.Field;
@@ -105,7 +104,7 @@ public abstract class QuickForms<E extends Serializable, G extends ComponentHier
 	 *
 	 * @return
 	 */
-	protected String getFieldId(@NotNull Field field, @Nullable String suffix)
+	protected String getFieldId(@NotNull Field field, String suffix)
 	{
 		return getSerializable().getClass()
 		                        .getSimpleName() + "_" + field.getName() + "_" + (suffix == null ? "" : suffix);
