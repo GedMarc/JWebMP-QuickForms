@@ -17,7 +17,7 @@
 
 package com.jwebmp.plugins.quickforms;
 
-import com.jwebmp.base.ComponentHierarchyBase;
+import com.jwebmp.core.base.ComponentHierarchyBase;
 import com.jwebmp.plugins.quickforms.annotations.*;
 
 import java.io.Serializable;

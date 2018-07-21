@@ -1,7 +1,7 @@
 package com.jwebmp.plugins.quickforms;
 
-import com.jwebmp.base.ComponentHierarchyBase;
-import com.jwebmp.base.html.interfaces.children.FormChildren;
+import com.jwebmp.core.base.ComponentHierarchyBase;
+import com.jwebmp.core.base.html.interfaces.children.FormChildren;
 import com.jwebmp.plugins.quickforms.annotations.*;
 
 import java.lang.reflect.Field;

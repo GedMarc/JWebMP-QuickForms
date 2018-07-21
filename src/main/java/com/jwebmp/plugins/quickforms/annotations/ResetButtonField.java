@@ -5,7 +5,7 @@
  */
 package com.jwebmp.plugins.quickforms.annotations;
 
-import com.jwebmp.events.click.ClickAdapter;
+import com.jwebmp.core.events.click.ClickAdapter;
 
 import java.lang.annotation.*;
 

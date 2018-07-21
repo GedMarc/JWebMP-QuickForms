@@ -1,13 +1,13 @@
 package com.jwebmp.plugins.quickforms;
 
-import com.jwebmp.base.ComponentHierarchyBase;
-import com.jwebmp.base.html.Form;
-import com.jwebmp.base.html.Input;
+import com.jwebmp.core.base.ComponentHierarchyBase;
+import com.jwebmp.core.base.html.Form;
+import com.jwebmp.core.base.html.Input;
+import com.jwebmp.core.utilities.StaticStrings;
 import com.jwebmp.guicedinjection.GuiceContext;
 import com.jwebmp.logger.LogFactory;
 import com.jwebmp.plugins.quickforms.annotations.*;
 import com.jwebmp.plugins.quickforms.annotations.states.WebReadOnly;
-import com.jwebmp.utilities.StaticStrings;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;

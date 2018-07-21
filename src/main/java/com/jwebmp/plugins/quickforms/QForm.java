@@ -1,13 +1,13 @@
 package com.jwebmp.plugins.quickforms;
 
-import com.jwebmp.base.html.DivSimple;
-import com.jwebmp.base.html.Form;
-import com.jwebmp.base.html.Input;
-import com.jwebmp.base.html.interfaces.children.FormChildren;
+import com.jwebmp.core.base.html.DivSimple;
+import com.jwebmp.core.base.html.Form;
+import com.jwebmp.core.base.html.Input;
+import com.jwebmp.core.base.html.interfaces.children.FormChildren;
+import com.jwebmp.core.utilities.StaticStrings;
 import com.jwebmp.logger.LogFactory;
 import com.jwebmp.plugins.quickforms.annotations.*;
 import com.jwebmp.plugins.quickforms.annotations.states.WebIgnore;
-import com.jwebmp.utilities.StaticStrings;
 
 import javax.validation.constraints.NotNull;
 import java.lang.reflect.Field;
@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static com.jwebmp.utilities.StaticStrings.*;
+import static com.jwebmp.core.utilities.StaticStrings.*;
 
 /**
  * Implementation Base for a Quick Form
