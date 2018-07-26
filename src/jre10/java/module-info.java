@@ -11,4 +11,7 @@ module com.jwebmp.plugins.quickforms {
 	requires java.validation;
 	requires java.logging;
 	requires com.jwebmp.guicedinjection;
+
+	opens com.jwebmp.plugins.quickforms to com.fasterxml.jackson.databind,com.jwebmp.core;
+	opens com.jwebmp.plugins.quickforms.annotations to com.fasterxml.jackson.databind,com.jwebmp.core;
 }
