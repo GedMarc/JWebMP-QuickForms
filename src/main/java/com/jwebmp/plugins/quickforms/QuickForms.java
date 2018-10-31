@@ -26,7 +26,7 @@ public abstract class QuickForms<GROUP, J extends QuickForms<GROUP, J>>
 		extends DivSimple<J>
 		implements IQuickForm<GROUP>
 {
-	private static final long serialVersionUID = 1L;
+
 	private static final Logger log = LogFactory.getLog("QForms");
 
 	/**

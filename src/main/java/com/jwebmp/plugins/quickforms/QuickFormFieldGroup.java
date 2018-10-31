@@ -18,7 +18,7 @@ import java.util.List;
 public class QuickFormFieldGroup<G extends ComponentHierarchyBase, J extends QuickFormFieldGroup<G, J>>
 		extends JavaScriptPart<J>
 {
-	private static final long serialVersionUID = 1L;
+
 	/**
 	 * The form this group belongs to
 	 */
