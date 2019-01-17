@@ -10,7 +10,7 @@ import java.lang.annotation.*;
 /**
  * Instructs the form renderer to ignore the field
  *
- * @author Marc Magon
+ * @author GedMarc
  * @since 26 April 2018
  */
 @Target({ElementType.FIELD, ElementType.TYPE_USE})

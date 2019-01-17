@@ -10,7 +10,7 @@ import com.jwebmp.core.events.click.ClickAdapter;
 import java.lang.annotation.*;
 
 /**
- * @author Marc Magon
+ * @author GedMarc
  * @since 25 Mar 2017
  */
 @Target({ElementType.FIELD, ElementType.TYPE_USE})
