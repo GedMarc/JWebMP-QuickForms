@@ -3,6 +3,7 @@ package com.jwebmp.plugins.quickforms;
 import com.jwebmp.core.base.html.DivSimple;
 import com.jwebmp.core.base.html.Form;
 import com.jwebmp.core.base.html.Input;
+import com.jwebmp.core.base.interfaces.IComponentHierarchyBase;
 import com.jwebmp.core.utilities.StaticStrings;
 import com.jwebmp.logger.LogFactory;
 import com.jwebmp.plugins.quickforms.annotations.*;
@@ -62,28 +63,37 @@ public abstract class QuickForms<GROUP, J extends QuickForms<GROUP, J>>
 	}
 
 	@Override
-	public void preConfigure()
+	public void init()
 	{
-		addDto(getDtoName(), object);
+		if(!isInitialized())
+		{
+			addDto(getDtoName(), object);
 
-		Field[] classFields = getObject().getClass()
-		                                 .getDeclaredFields();
-		List<Field> workableFields = Arrays.asList(classFields);
-		workableFields.removeIf(a -> a.isAnnotationPresent(WebIgnore.class));
-		workableFields.forEach(field ->
-		                       {
-			                       if (isRenderDefaults())
+			Field[] classFields = getObject().getClass()
+			                                 .getDeclaredFields();
+			List<Field> workableFields = Arrays.asList(classFields);
+			workableFields.removeIf(a -> a.isAnnotationPresent(WebIgnore.class));
+			workableFields.forEach(field ->
 			                       {
-				                       processDefaults(field, null);
-			                       }
-			                       else
-			                       {
-				                       processField(field, null);
-			                       }
-		                       });
-		processButtonEvents();
-		add(form);
-		super.preConfigure();
+			                       	try
+			                        {
+				                        if (isRenderDefaults())
+				                        {
+					                        processDefaults(field, null);
+				                        }
+				                        else
+				                        {
+					                        processField(field, null);
+				                        }
+			                        }catch(Throwable T)
+			                        {
+			                        	log.log(Level.WARNING,"Cannot generate field " + field,T);
+			                        }
+			                       });
+			processButtonEvents();
+			add(form);
+			super.init();
+		}
 	}
 
 	/**
@@ -251,6 +261,8 @@ public abstract class QuickForms<GROUP, J extends QuickForms<GROUP, J>>
 			groupContent = buildUrlField(field, lf, groupContent);
 		}
 		configureReadOnly(groupContent, field);
+
+		form.add((IComponentHierarchyBase) groupContent);
 	}
 
 	protected void processButtonEvents()
