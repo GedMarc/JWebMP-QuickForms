@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static com.guicedee.guicedinjection.json.StaticStrings.*;
 import static com.jwebmp.core.utilities.StaticStrings.*;
 
 /**
@@ -375,7 +376,7 @@ public abstract class QuickForms<GROUP, J extends QuickForms<GROUP, J>>
 	@NotNull
 	protected String getFieldVariableName(Field field)
 	{
-		return getDtoName() + StaticStrings.STRING_DOT + field.getName();
+		return getDtoName() + STRING_DOT + field.getName();
 	}
 
 	/**
