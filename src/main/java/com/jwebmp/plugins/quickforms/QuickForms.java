@@ -9,7 +9,7 @@ import com.guicedee.logger.LogFactory;
 import com.jwebmp.plugins.quickforms.annotations.*;
 import com.jwebmp.plugins.quickforms.annotations.states.WebIgnore;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
