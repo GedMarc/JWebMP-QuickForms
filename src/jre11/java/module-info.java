@@ -7,7 +7,7 @@ module com.jwebmp.plugins.quickforms {
 	requires com.jwebmp.core;
 	requires com.guicedee.logmaster;
 
-	requires java.validation;
+	requires jakarta.validation;
 	requires java.logging;
 	requires com.guicedee.guicedinjection;
 
