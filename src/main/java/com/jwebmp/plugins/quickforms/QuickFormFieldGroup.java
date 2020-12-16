@@ -2,6 +2,7 @@ package com.jwebmp.plugins.quickforms;
 
 import com.jwebmp.core.base.ComponentHierarchyBase;
 import com.jwebmp.core.base.html.Form;
+import com.jwebmp.core.base.interfaces.IComponentHierarchyBase;
 import com.jwebmp.core.htmlbuilder.javascript.JavaScriptPart;
 
 import jakarta.validation.constraints.NotNull;
@@ -15,14 +16,13 @@ import java.util.List;
  * @param <G>
  * 		The group component type
  */
-public class QuickFormFieldGroup<G extends ComponentHierarchyBase, J extends QuickFormFieldGroup<G, J>>
+public class QuickFormFieldGroup<G extends IComponentHierarchyBase<?,?>, J extends QuickFormFieldGroup<G, J>>
 		extends JavaScriptPart<J>
 {
-
 	/**
 	 * The form this group belongs to
 	 */
-	private Form form;
+	private Form<?> form;
 	/**
 	 * The group for this item
 	 */
@@ -59,7 +59,7 @@ public class QuickFormFieldGroup<G extends ComponentHierarchyBase, J extends Qui
 	 *
 	 * @return
 	 */
-	public Form getForm()
+	public Form<?> getForm()
 	{
 		return form;
 	}
@@ -72,7 +72,7 @@ public class QuickFormFieldGroup<G extends ComponentHierarchyBase, J extends Qui
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public J setForm(Form form)
+	public J setForm(Form<?> form)
 	{
 		this.form = form;
 		return (J) this;

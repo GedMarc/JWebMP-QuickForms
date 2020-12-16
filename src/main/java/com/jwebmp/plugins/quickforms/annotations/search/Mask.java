@@ -16,6 +16,8 @@
  */
 package com.jwebmp.plugins.quickforms.annotations.search;
 
+import com.jwebmp.core.plugins.ComponentInformation;
+
 import java.lang.annotation.*;
 
 /**
@@ -24,6 +26,7 @@ import java.lang.annotation.*;
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
+@ComponentInformation(name = "Marker to cover an input field with a given mask",description = "Marker to cover an input field with a given mask")
 public @interface Mask
 {
 	/**

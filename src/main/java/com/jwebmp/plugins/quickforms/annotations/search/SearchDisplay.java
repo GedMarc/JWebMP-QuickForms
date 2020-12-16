@@ -17,6 +17,8 @@
 
 package com.jwebmp.plugins.quickforms.annotations.search;
 
+import com.jwebmp.core.plugins.ComponentInformation;
+
 import java.lang.annotation.*;
 
 /**
@@ -25,10 +27,12 @@ import java.lang.annotation.*;
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
+@ComponentInformation(name = "Marker to denote that the field must be displayed on the search screen",
+		description = "Marker to denote that the field must be displayed on the search screen")
 public @interface SearchDisplay
 {
 	String columnHeader();
-
+	
 	int columnOrder() default 0;
-
+	
 }

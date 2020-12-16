@@ -22,6 +22,8 @@
  */
 package com.jwebmp.plugins.quickforms.annotations;
 
+import com.jwebmp.core.plugins.ComponentInformation;
+
 import java.lang.annotation.*;
 
 /**
@@ -31,6 +33,7 @@ import java.lang.annotation.*;
 @Target({ElementType.FIELD, ElementType.TYPE_USE})
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
+@ComponentInformation(name = "Configures a field as an text area",description = "Configures a field as an text area")
 public @interface TextAreaField
 {
 

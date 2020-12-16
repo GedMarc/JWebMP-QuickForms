@@ -17,6 +17,8 @@
 
 package com.jwebmp.plugins.quickforms.annotations.wizard;
 
+import com.jwebmp.core.plugins.ComponentInformation;
+
 import java.lang.annotation.*;
 
 @Target({ElementType.TYPE, ElementType.TYPE_USE
@@ -24,6 +26,7 @@ import java.lang.annotation.*;
 })
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
+@ComponentInformation(name = "Configures a Form as a Wizard with steps",description = "Configures a Form as a Wizard with steps")
 public @interface WizardForm
 {
 	/**

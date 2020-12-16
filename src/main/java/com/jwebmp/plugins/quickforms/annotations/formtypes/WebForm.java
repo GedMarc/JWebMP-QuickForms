@@ -22,6 +22,8 @@
  */
 package com.jwebmp.plugins.quickforms.annotations.formtypes;
 
+import com.jwebmp.core.plugins.ComponentInformation;
+
 import java.lang.annotation.*;
 
 /**
@@ -31,6 +33,7 @@ import java.lang.annotation.*;
 @Target({ElementType.TYPE, ElementType.TYPE_USE})
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
+@ComponentInformation(name = "Configures a Form",description = "Apply configurations to the form")
 public @interface WebForm
 {
 

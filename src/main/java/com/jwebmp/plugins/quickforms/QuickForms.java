@@ -1,15 +1,16 @@
 package com.jwebmp.plugins.quickforms;
 
+import com.guicedee.logger.LogFactory;
 import com.jwebmp.core.base.html.DivSimple;
 import com.jwebmp.core.base.html.Form;
 import com.jwebmp.core.base.html.Input;
-import com.jwebmp.core.base.interfaces.IComponentHierarchyBase;
-import com.jwebmp.core.utilities.StaticStrings;
-import com.guicedee.logger.LogFactory;
+import com.jwebmp.core.base.html.interfaces.children.FormChildren;
+import com.jwebmp.core.plugins.PluginInformation;
+import com.jwebmp.core.plugins.PluginStatus;
 import com.jwebmp.plugins.quickforms.annotations.*;
 import com.jwebmp.plugins.quickforms.annotations.states.WebIgnore;
-
 import jakarta.validation.constraints.NotNull;
+
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
@@ -17,13 +18,32 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static com.guicedee.guicedinjection.json.StaticStrings.*;
-import static com.jwebmp.core.utilities.StaticStrings.*;
 
 /**
  * Implementation Base for a Quick Form
  *
  * @param <GROUP>
  */
+@PluginInformation(pluginName = "QuickForms",
+		pluginUniqueName = "quickforms",
+		pluginDescription = "Create forms out of objects automatically using annotations,reference any plugin and create automated forms with sending",
+		pluginVersion = "1.0.0",
+		pluginDependancyUniqueIDs = "jquery",
+		pluginCategories = "forms,frameworks,ui",
+		pluginSubtitle = "Create forms out of objects automatically using annotations",
+		pluginGitUrl = "https://github.com/GedMarc/JWebMP-BSQuickForms4",
+		pluginSourceUrl = "https://github.com/GedMarc/JWebMP-BSQuickForms4",
+		pluginWikiUrl = "https://github.com/GedMarc/JWebMP-BSQuickForms4/wiki",
+		pluginOriginalHomepage = "http://www.jwebmp.com/",
+		pluginIconUrl = "",
+		pluginIconImageUrl = "",
+		pluginDownloadUrl = "https://mvnrepository.com/artifact/com.jwebmp.plugins.forms/jwebmp-quickforms",
+		pluginGroupId = "com.jwebmp.plugins.forms",
+		pluginArtifactId = "jwebmp-quickforms",
+		pluginModuleName = "com.jwebmp.plugins.quickforms",
+		pluginStatus = PluginStatus.Released,
+		pluginLastUpdatedDate = "2020/12/16"
+)
 public abstract class QuickForms<GROUP, J extends QuickForms<GROUP, J>>
 		extends DivSimple<J>
 		implements IQuickForm<GROUP>
@@ -60,7 +80,7 @@ public abstract class QuickForms<GROUP, J extends QuickForms<GROUP, J>>
 	 */
 	protected QuickForms()
 	{
-		form = new Form();
+		form = new Form<>();
 	}
 
 	@Override
@@ -153,8 +173,9 @@ public abstract class QuickForms<GROUP, J extends QuickForms<GROUP, J>>
 	 * @param groupContent
 	 * 		The group content may be null
 	 */
+	@SuppressWarnings("SameParameterValue")
 	protected abstract void processDefaults(Field field, GROUP groupContent);
-
+	@SuppressWarnings("SameParameterValue")
 	protected void processField(Field field, GROUP groupContent)
 	{
 		field.setAccessible(true);
@@ -263,7 +284,7 @@ public abstract class QuickForms<GROUP, J extends QuickForms<GROUP, J>>
 		}
 		configureReadOnly(groupContent, field);
 
-		form.add((IComponentHierarchyBase) groupContent);
+		form.add((FormChildren) groupContent);
 	}
 
 	protected void processButtonEvents()
@@ -347,7 +368,7 @@ public abstract class QuickForms<GROUP, J extends QuickForms<GROUP, J>>
 	 */
 	@SuppressWarnings("unchecked")
 	@NotNull
-	protected J setValue(Field field, Input input)
+	protected J setValue(Field field, Input<?,?> input)
 	{
 		try
 		{

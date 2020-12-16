@@ -6,6 +6,7 @@
 package com.jwebmp.plugins.quickforms.annotations;
 
 import com.jwebmp.core.events.click.ClickAdapter;
+import com.jwebmp.core.plugins.ComponentInformation;
 
 import java.lang.annotation.*;
 
@@ -16,6 +17,7 @@ import java.lang.annotation.*;
 @Target({ElementType.FIELD, ElementType.TYPE_USE})
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
+@ComponentInformation(name = "Configures a field as the cancel button",description = "Configures a field as the cancel button")
 public @interface CancelButtonField
 {
 	/**
@@ -23,7 +25,7 @@ public @interface CancelButtonField
 	 *
 	 * @return
 	 */
-	Class<? extends ClickAdapter> eventClass();
+	Class<? extends ClickAdapter<?>> eventClass();
 
 	String style() default "";
 

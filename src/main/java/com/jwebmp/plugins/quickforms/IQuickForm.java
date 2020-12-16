@@ -1,6 +1,6 @@
 package com.jwebmp.plugins.quickforms;
 
-import com.jwebmp.core.base.ComponentHierarchyBase;
+import com.jwebmp.core.base.interfaces.IComponentHierarchyBase;
 import com.jwebmp.plugins.quickforms.annotations.*;
 
 import java.lang.reflect.Field;
@@ -249,7 +249,7 @@ public interface IQuickForm<GROUP>
 	 *
 	 * @return
 	 */
-	ComponentHierarchyBase buildSubmitButton(Field field, SubmitButtonField annotation, GROUP fieldGroup);
+	IComponentHierarchyBase<?,?> buildSubmitButton(Field field, SubmitButtonField annotation, GROUP fieldGroup);
 
 	/**
 	 * Adds hidden content into the form
@@ -259,7 +259,7 @@ public interface IQuickForm<GROUP>
 	 *
 	 * @return
 	 */
-	ComponentHierarchyBase buildCancelButton(Field field, CancelButtonField annotation, GROUP fieldGroup);
+	IComponentHierarchyBase<?,?> buildCancelButton(Field field, CancelButtonField annotation, GROUP fieldGroup);
 
 	/**
 	 * Adds hidden content into the form
@@ -269,5 +269,5 @@ public interface IQuickForm<GROUP>
 	 *
 	 * @return
 	 */
-	ComponentHierarchyBase buildResetButton(Field field, ResetButtonField annotation, GROUP fieldGroup);
+	IComponentHierarchyBase<?,?> buildResetButton(Field field, ResetButtonField annotation, GROUP fieldGroup);
 }
