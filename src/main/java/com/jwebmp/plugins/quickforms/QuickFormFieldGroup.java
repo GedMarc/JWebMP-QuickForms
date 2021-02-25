@@ -30,19 +30,19 @@ public class QuickFormFieldGroup<G extends IComponentHierarchyBase<?,?>, J exten
 	/**
 	 * The intended label field
 	 */
-	private ComponentHierarchyBase labelField;
+	private IComponentHierarchyBase<?,?> labelField;
 	/**
 	 * The intended input field
 	 */
-	private ComponentHierarchyBase inputField;
+	private IComponentHierarchyBase<?,?> inputField;
 	/**
 	 * The list of given input fields
 	 */
-	private List<ComponentHierarchyBase> preInputFields;
+	private List<IComponentHierarchyBase<?,?>> preInputFields;
 	/**
 	 * The list of given post input fields
 	 */
-	private List<ComponentHierarchyBase> postInputFields;
+	private List<IComponentHierarchyBase<?,?>> postInputFields;
 
 	/**
 	 * Constructs a new group with the given form
@@ -107,7 +107,7 @@ public class QuickFormFieldGroup<G extends IComponentHierarchyBase<?,?>, J exten
 	 *
 	 * @return
 	 */
-	public ComponentHierarchyBase getLabelField()
+	public IComponentHierarchyBase<?,?> getLabelField()
 	{
 		return labelField;
 	}
@@ -120,7 +120,7 @@ public class QuickFormFieldGroup<G extends IComponentHierarchyBase<?,?>, J exten
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public J setLabelField(ComponentHierarchyBase labelField)
+	public J setLabelField(IComponentHierarchyBase<?,?> labelField)
 	{
 		this.labelField = labelField;
 		return (J) this;
@@ -132,7 +132,7 @@ public class QuickFormFieldGroup<G extends IComponentHierarchyBase<?,?>, J exten
 	 * @return
 	 */
 	@NotNull
-	public ComponentHierarchyBase getInputField()
+	public IComponentHierarchyBase<?,?> getInputField()
 	{
 		return inputField;
 	}
@@ -145,7 +145,7 @@ public class QuickFormFieldGroup<G extends IComponentHierarchyBase<?,?>, J exten
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public J setInputField(@NotNull ComponentHierarchyBase inputField)
+	public J setInputField(@NotNull IComponentHierarchyBase<?,?> inputField)
 	{
 		this.inputField = inputField;
 		return (J) this;
@@ -157,7 +157,7 @@ public class QuickFormFieldGroup<G extends IComponentHierarchyBase<?,?>, J exten
 	 * @return
 	 */
 	@NotNull
-	public List<ComponentHierarchyBase> getPreInputFields()
+	public List<IComponentHierarchyBase<?,?>> getPreInputFields()
 	{
 		if (preInputFields == null)
 		{
@@ -174,7 +174,7 @@ public class QuickFormFieldGroup<G extends IComponentHierarchyBase<?,?>, J exten
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public J setPreInputFields(List<ComponentHierarchyBase> preInputFields)
+	public J setPreInputFields(List<IComponentHierarchyBase<?,?>> preInputFields)
 	{
 		this.preInputFields = preInputFields;
 		return (J) this;
@@ -186,7 +186,7 @@ public class QuickFormFieldGroup<G extends IComponentHierarchyBase<?,?>, J exten
 	 * @return
 	 */
 	@NotNull
-	public List<ComponentHierarchyBase> getPostInputFields()
+	public List<IComponentHierarchyBase<?,?>> getPostInputFields()
 	{
 		if (postInputFields == null)
 		{
@@ -203,7 +203,7 @@ public class QuickFormFieldGroup<G extends IComponentHierarchyBase<?,?>, J exten
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public J setPostInputFields(List<ComponentHierarchyBase> postInputFields)
+	public J setPostInputFields(List<IComponentHierarchyBase<?,?>> postInputFields)
 	{
 		this.postInputFields = postInputFields;
 		return (J) this;

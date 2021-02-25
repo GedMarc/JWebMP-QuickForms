@@ -31,7 +31,9 @@ import java.lang.annotation.*;
 @ComponentInformation(name = "Configures a field as an label",description = "Configures a field as an label")
 public @interface LabelField
 {
-	String label();
+	String value();
+
+	boolean inline() default false;
 
 	String style() default "";
 

@@ -30,6 +30,10 @@ public @interface NumberField
 
 	boolean required() default false;
 
+	int precision() default 0;
+
+	int scale() default -1;
+
 	int minimumValue() default Integer.MIN_VALUE;
 
 	int maximumValue() default Integer.MIN_VALUE;

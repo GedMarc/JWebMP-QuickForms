@@ -15,7 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.jwebmp.plugins.quickforms.annotations;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.jwebmp.plugins.quickforms.annotations.formtypes;
 
 import com.jwebmp.core.plugins.ComponentInformation;
 
@@ -25,29 +30,23 @@ import java.lang.annotation.*;
  * @author GedMarc
  * @since 25 Mar 2017
  */
-@Target({ElementType.FIELD, ElementType.TYPE_USE})
+@Target({ElementType.TYPE, ElementType.TYPE_USE})
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
-@ComponentInformation(name = "Configures a field as an file picker",description = "Configures a field as an file picker")
-public @interface FileField
+@ComponentInformation(name = "Configures a Form Group",description = "Apply configurations to the form group")
+public @interface WebFormStartRow
 {
+	/**
+	 * Any additional styles to add
+	 *
+	 * @return
+	 */
 	String style() default "";
 
+	/**
+	 * Any additional classes to add
+	 *
+	 * @return
+	 */
 	String classes() default "";
-
-	String placeholder() default "";
-
-	String requiredMessage() default "This field is required";
-
-	String patternMessage() default "This field doesn't match the required pattern";
-
-	boolean required() default false;
-
-	boolean showControlFeedback() default true;
-
-	String label() default "";
-
-	String regex() default "";
-
-	String regexBind() default "";
 }
