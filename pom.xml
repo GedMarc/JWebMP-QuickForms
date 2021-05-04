@@ -23,6 +23,10 @@
             <groupId>com.jwebmp.core</groupId>
             <artifactId>jwebmp-core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.jwebmp.plugins.forms</groupId>
+            <artifactId>jwebmp-quickforms-annotations</artifactId>
+        </dependency>
     </dependencies>
 
     <scm>

@@ -6,11 +6,8 @@ module com.jwebmp.plugins.quickforms {
 
 	exports com.jwebmp.plugins.quickforms;
 	exports com.jwebmp.plugins.quickforms.services;
-	exports com.jwebmp.plugins.quickforms.annotations;
-	exports com.jwebmp.plugins.quickforms.annotations.formtypes;
-	exports com.jwebmp.plugins.quickforms.annotations.search;
-	exports com.jwebmp.plugins.quickforms.annotations.wizard;
-	exports com.jwebmp.plugins.quickforms.annotations.states;
+
+	requires transitive com.jwebmp.plugins.quickforms.annotations;
 
 	requires com.jwebmp.core;
 	requires com.guicedee.logmaster;
@@ -27,5 +24,4 @@ module com.jwebmp.plugins.quickforms {
 
 	opens com.jwebmp.plugins.quickforms to com.google.guice, com.fasterxml.jackson.databind, com.jwebmp.core;
 	opens com.jwebmp.plugins.quickforms.services to com.google.guice,com.fasterxml.jackson.databind, com.jwebmp.core;
-//	opens com.jwebmp.plugins.quickforms.annotations to com.fasterxml.jackson.databind, com.jwebmp.core;
 }

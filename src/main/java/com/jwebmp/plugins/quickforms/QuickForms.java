@@ -1,6 +1,7 @@
 package com.jwebmp.plugins.quickforms;
 
-import com.guicedee.guicedinjection.GuiceContext;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.google.common.base.Strings;
 import com.guicedee.guicedinjection.interfaces.IDefaultService;
 import com.guicedee.logger.LogFactory;
 import com.jwebmp.core.base.html.DivSimple;
@@ -12,16 +13,18 @@ import com.jwebmp.core.base.interfaces.IComponentHierarchyBase;
 import com.jwebmp.core.plugins.PluginInformation;
 import com.jwebmp.core.plugins.PluginStatus;
 import com.jwebmp.plugins.quickforms.annotations.*;
-import com.jwebmp.plugins.quickforms.annotations.formtypes.WebFormEndRow;
-import com.jwebmp.plugins.quickforms.annotations.formtypes.WebFormStartRow;
+import com.jwebmp.plugins.quickforms.annotations.states.WebField;
 import com.jwebmp.plugins.quickforms.annotations.states.WebIgnore;
 import com.jwebmp.plugins.quickforms.services.IAnnotationFieldHandler;
 import com.jwebmp.plugins.quickforms.services.IFormFieldWrapperEnd;
 import com.jwebmp.plugins.quickforms.services.IFormFieldWrapperStart;
 import jakarta.validation.constraints.NotNull;
+import org.apache.commons.lang3.StringUtils;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.*;
 import java.util.logging.Level;
@@ -58,8 +61,7 @@ public abstract class QuickForms<GROUP, J extends QuickForms<GROUP, J>>
         extends DivSimple<J>
         implements IQuickForm<GROUP>
 {
-
-    private static final Logger log = LogFactory.getLog("QForms");
+    private static final Logger log = LogFactory.getLog("QuickForms");
 
     /**
      * The object to work on
@@ -69,6 +71,7 @@ public abstract class QuickForms<GROUP, J extends QuickForms<GROUP, J>>
     /**
      * The form that gets built
      */
+    @NotNull
     private Form<?> form;
 
     private boolean readOnlyOverride;
@@ -110,24 +113,85 @@ public abstract class QuickForms<GROUP, J extends QuickForms<GROUP, J>>
         }
 
         workableFields.removeIf(a -> a.isAnnotationPresent(WebIgnore.class));
-        workableFields.forEach(field ->
+        IComponentHierarchyBase<GlobalChildren, ?> currentWrapper = null;
+
+        for (Field field : workableFields)
         {
-            try
-            {
-                IComponentHierarchyBase<?, ?> groupContent = (IComponentHierarchyBase<?, ?>) processField(field, null);
-                if (groupContent == null)
-                    if (isRenderDefaults())
-                    {
-                        processDefaults(field, null);
-                    }
-            } catch (Throwable T)
-            {
-                log.log(Level.WARNING, "Cannot generate field " + field, T);
-            }
-        });
+            currentWrapper = fieldWork(field, currentWrapper);
+        }
         processButtonEvents();
         add(form);
         super.init();
+    }
+
+    boolean setState = false;
+
+    private IComponentHierarchyBase<GlobalChildren, ?> fieldWork(Field field, IComponentHierarchyBase<GlobalChildren, ?> currentWrapper)
+    {
+        try
+        {
+            if (field.isAnnotationPresent(WebFormEndRow.class))
+            {
+                Set<IFormFieldWrapperEnd> starts = IDefaultService.loaderToSet(ServiceLoader.load(IFormFieldWrapperEnd.class));
+                for (IFormFieldWrapperEnd start : starts)
+                {
+                    start.finalizeDiv(currentWrapper, field.getAnnotation(WebFormEndRow.class));
+                    currentWrapper = null;
+                    setState = false;
+                    break;
+                }
+            }
+
+            if (field.isAnnotationPresent(WebFormStartRow.class))
+            {
+                Set<IFormFieldWrapperStart> starts = IDefaultService.loaderToSet(ServiceLoader.load(IFormFieldWrapperStart.class));
+                for (IFormFieldWrapperStart start : starts)
+                {
+                    //noinspection unchecked
+                    currentWrapper = (IComponentHierarchyBase<GlobalChildren, ?>) start.createWrapper(field.getAnnotation(WebFormStartRow.class));
+                    setState = true;
+                    break;
+                }
+            }
+
+            IComponentHierarchyBase<?, ?> groupContent = (IComponentHierarchyBase<?, ?>) processField(field, null);
+            if (groupContent == null)
+            {
+                if (isRenderDefaults())
+                {
+                    processDefaults(field, null);
+                }
+            } else
+            {
+
+                if (field.isAnnotationPresent(WebField.class))
+                {
+                    WebField wf = field.getAnnotation(WebField.class);
+                    if (!Strings.isNullOrEmpty(wf.classes()))
+                    {
+                        groupContent.addClass(wf.classes());
+                    }
+                    if (!Strings.isNullOrEmpty(wf.style()))
+                    {
+                        groupContent.asAttributeBase().addStyle(wf.style());
+                    }
+                }
+
+                if (setState && currentWrapper != null)
+                {
+                    currentWrapper.add(groupContent);
+                    if (!form.getChildren().contains(currentWrapper))
+                        form.add((FormChildren) currentWrapper);
+                } else
+                {
+                    form.add((FormChildren) groupContent);
+                }
+            }
+        } catch (Throwable T)
+        {
+            log.log(Level.WARNING, "Cannot generate field " + field, T);
+        }
+        return currentWrapper;
     }
 
     /**
@@ -188,7 +252,7 @@ public abstract class QuickForms<GROUP, J extends QuickForms<GROUP, J>>
     public abstract void processDefaults(Field field, GROUP groupContent);
 
     @SuppressWarnings("unchecked")
-    private IAnnotationFieldHandler<?,?> findAnnotationClass(Annotation annotation)
+    private IAnnotationFieldHandler<?, ?> findAnnotationClass(Annotation annotation)
     {
         @SuppressWarnings("rawtypes")
         Set<IAnnotationFieldHandler> iAnnotationFieldHandlers = IDefaultService.loaderToSet(ServiceLoader.load(IAnnotationFieldHandler.class));
@@ -200,62 +264,20 @@ public abstract class QuickForms<GROUP, J extends QuickForms<GROUP, J>>
         return null;
     }
 
-    private IComponentHierarchyBase<GlobalChildren, ?> currentWrapper = null;
-
     @SuppressWarnings({"SameParameterValue", "unchecked"})
     public GROUP processField(Field field, GROUP groupContent)
     {
-        field.setAccessible(true);
-        boolean setStart = false;
         for (Annotation declaredAnnotation : field.getDeclaredAnnotations())
         {
-            if (currentWrapper == null && declaredAnnotation.annotationType().equals(WebFormStartRow.class))
-            // if (declaredAnnotation instanceof IFormFieldWrapperStart)
-            {
-
-                Set<IFormFieldWrapperStart> starts = IDefaultService.loaderToSet(ServiceLoader.load(IFormFieldWrapperStart.class));
-                for (IFormFieldWrapperStart start : starts)
-                {
-                    currentWrapper = (IComponentHierarchyBase<GlobalChildren, ?>) start.createWrapper();
-                    setStart = true;
-                    break;
-                }
-            }
-            if (currentWrapper != null && !setStart  && declaredAnnotation.annotationType().equals(WebFormEndRow.class))
-               // if (declaredAnnotation instanceof IFormFieldWrapperEnd)
-                {
-                    Set<IFormFieldWrapperEnd> starts = IDefaultService.loaderToSet(ServiceLoader.load(IFormFieldWrapperEnd.class));
-                    for (IFormFieldWrapperEnd start : starts)
-                    {
-                        start.finalizeDiv(currentWrapper);
-                        currentWrapper = null;
-                        break;
-                    }
-                }
-
-            //noinspection RedundantCast
-            if (currentWrapper != null && !form.getChildren().contains((FormChildren) currentWrapper))
-            {
-                form.add((FormChildren) currentWrapper);
-            }
-
             @SuppressWarnings("rawtypes")
             IAnnotationFieldHandler annot = findAnnotationClass(declaredAnnotation);
-            if(annot != null)
+            if (annot != null)
             {
                 groupContent = (GROUP) annot.buildField(this, field, declaredAnnotation, (IComponentHierarchyBase<?, ?>) groupContent);
                 break;
             }
         }
         configureReadOnly(groupContent, field);
-        if (currentWrapper == null && groupContent != null)
-        {
-            form.add((FormChildren) groupContent);
-        } else if (currentWrapper != null && groupContent != null)
-        {
-            currentWrapper.getChildren().add((GlobalChildren) groupContent);
-        }
-
         return groupContent;
     }
 
@@ -265,7 +287,6 @@ public abstract class QuickForms<GROUP, J extends QuickForms<GROUP, J>>
                 .getDeclaredFields();
         for (Field field : fields)
         {
-            field.setAccessible(true);
             if (field.isAnnotationPresent(SubmitButtonField.class))
             {
                 SubmitButtonField lf = field.getDeclaredAnnotation(SubmitButtonField.class);
@@ -340,11 +361,16 @@ public abstract class QuickForms<GROUP, J extends QuickForms<GROUP, J>>
     {
         try
         {
-            field.setAccessible(true);
-            if (field.get(getObject()) != null)
+            String mName = (field.getType() == boolean.class ? "is" : "get") + StringUtils.capitalize(field.getName());
+            try
             {
-                Object value = field.get(getObject());
-                input.setValue(value.toString());
+                Method method = getObject().getClass().getMethod(mName);
+                Object value = method.invoke(getObject());
+                if (value != null)
+                    input.setValue(value.toString());
+            } catch (NoSuchMethodException | InvocationTargetException e)
+            {
+                e.printStackTrace();
             }
         } catch (IllegalAccessException e)
         {
