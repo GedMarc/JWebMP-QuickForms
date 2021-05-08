@@ -20,6 +20,7 @@ import com.jwebmp.plugins.quickforms.services.IFormFieldWrapperEnd;
 import com.jwebmp.plugins.quickforms.services.IFormFieldWrapperStart;
 import jakarta.validation.constraints.NotNull;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.reflect.FieldUtils;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -101,20 +102,13 @@ public abstract class QuickForms<GROUP, J extends QuickForms<GROUP, J>>
     {
         addDto(getDtoName(), object);
 
-        Field[] classFields = getObject().getClass()
-                .getDeclaredFields();
-        List<Field> workableFields = new ArrayList<>();
-        for (Field classField : classFields)
-        {
-
-            if (Modifier.isStatic(classField.getModifiers()) || Modifier.isFinal(classField.getModifiers()))
-                continue;
-            workableFields.add(classField);
-        }
-
+        List<Field> workableFields =FieldUtils.getAllFieldsList(object.getClass());
+        workableFields.removeIf(classField -> Modifier.isStatic(classField.getModifiers()) ||
+                Modifier.isFinal(classField.getModifiers()) ||
+                Modifier.isTransient(classField.getModifiers())
+        );
         workableFields.removeIf(a -> a.isAnnotationPresent(WebIgnore.class));
         IComponentHierarchyBase<GlobalChildren, ?> currentWrapper = null;
-
         for (Field field : workableFields)
         {
             currentWrapper = fieldWork(field, currentWrapper);
