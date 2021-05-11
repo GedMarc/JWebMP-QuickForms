@@ -97,12 +97,40 @@ public abstract class QuickForms<GROUP, J extends QuickForms<GROUP, J>>
         form = new Form<>();
     }
 
+
+    /**
+     * Gets all fields of the given class and its parents (if any).
+     *
+     * @param cls
+     *            the {@link Class} to query
+     * @return an array of Fields (possibly empty).
+     * @throws IllegalArgumentException
+     *             if the class is {@code null}
+     * @since 3.2
+     */
+    public static List<Field> getAllFieldsList(final Class<?> cls) {
+        List<Field> allFields = new ArrayList<>();
+        Class<?> currentClass = cls;
+        while (currentClass != null) {
+            final Field[] declaredFields = currentClass.getDeclaredFields();
+            List<Field> orderedFields = new ArrayList<>();
+            Collections.addAll(orderedFields,declaredFields);
+            orderedFields.addAll(allFields);
+            allFields = orderedFields;
+            currentClass = currentClass.getSuperclass();
+        }
+        return allFields;
+    }
+
+
     @Override
     public void init()
     {
         addDto(getDtoName(), object);
 
-        List<Field> workableFields =FieldUtils.getAllFieldsList(object.getClass());
+        List<Field> workableFields =getAllFieldsList(object.getClass());
+
+
         workableFields.removeIf(classField -> Modifier.isStatic(classField.getModifiers()) ||
                 Modifier.isFinal(classField.getModifiers()) ||
                 Modifier.isTransient(classField.getModifiers())
