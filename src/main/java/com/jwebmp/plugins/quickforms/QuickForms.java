@@ -3,7 +3,7 @@ package com.jwebmp.plugins.quickforms;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.google.common.base.Strings;
 import com.guicedee.guicedinjection.interfaces.IDefaultService;
-import com.guicedee.logger.LogFactory;
+
 import com.jwebmp.core.base.html.DivSimple;
 import com.jwebmp.core.base.html.Form;
 import com.jwebmp.core.base.html.Input;
@@ -31,7 +31,7 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static com.guicedee.guicedinjection.json.StaticStrings.*;
+import static com.guicedee.services.jsonrepresentation.json.StaticStrings.*;
 
 /**
  * Implementation Base for a Quick Form
